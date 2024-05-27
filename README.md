@@ -1,3 +1,1 @@
-# argon_flutter_master
-
-A new Flutter project.
+Join our community of like-minded individuals. Engage in discussions, share recycling tips, and contribute to the collective effort of making the Earth a cleaner, greener place for generations to come. Welcome to Beekya, where every small effort counts!

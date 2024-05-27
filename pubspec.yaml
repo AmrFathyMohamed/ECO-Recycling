@@ -1,0 +1,70 @@
+name: eco
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.4 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  font_awesome_flutter: ^10.7.0
+  carousel_slider: ^4.2.1
+  url_launcher: ^6.2.6
+  scrollable_positioned_list: ^0.3.8
+  cupertino_icons: ^1.0.8
+  flutter_lints: ^4.0.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  # For information on the generic Dart part of this file, see the
+  # following page: https://dart.dev/tools/pub/pubspec
+
+  # The following section is specific to Flutter.
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/img/pro-background.png
+    - assets/img/onboard-background.png
+    - assets/img/logo-android.png
+    - assets/img/logo-ios.png
+    - assets/img/logo-argon.png
+    - assets/img/profile-screen-avatar.jpg
+    - assets/img/profile-screen-bg.png
+    - assets/img/register-bg.png
+    - assets/img/chat-avatar.jpeg
+    - assets/img/argon-logo.png
+    - assets/img/argon-logo-onboarding.png
+    - assets/metal.PNG
+    - assets/mixed.png
+    - assets/organic.png
+    - assets/paper.png
+    - assets/plastic.png
+    - assets/pulps.png
+    - assets/batteries.png
+    - assets/E-waste.png
+    - assets/glass.png
+    - assets/eco-logo.png
+    - assets/onboarding_landing/0.png
+    - assets/onboarding_landing/1.png
+    - assets/onboarding_landing/2.png
+    - assets/onboarding_landing/3.png
+    - assets/onboarding_landing/4.png
+    - assets/
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans-Regular.ttf
+        - asset: assets/fonts/OpenSans-Light.ttf
+          weight: 200
+        - asset: assets/fonts/OpenSans-Bold.ttf
+          weight: 600

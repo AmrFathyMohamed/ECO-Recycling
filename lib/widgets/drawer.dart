@@ -34,7 +34,7 @@ class ArgonDrawer extends StatelessWidget {
                 alignment: Alignment.bottomLeft,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 32),
-                  child: Image.asset("assets/img/argon-logo.png"),
+                  child: Image.asset("assets/eco-icon.png"),
                 ),
               ),
             )),
@@ -54,7 +54,7 @@ class ArgonDrawer extends StatelessWidget {
                   title: "Home",
                   isSelected: currentPage == "Home" ? true : false),
               DrawerTile(
-                  icon: Icons.pie_chart,
+                  icon: Icons.account_circle,
                   onTap: () {
                     if (currentPage != "Profile") {
                       Navigator.pushReplacementNamed(context, '/profile');
@@ -63,36 +63,28 @@ class ArgonDrawer extends StatelessWidget {
                   iconColor: ArgonColors.warning,
                   title: "Profile",
                   isSelected: currentPage == "Profile" ? true : false),
-              DrawerTile(
-                  icon: Icons.account_circle,
-                  onTap: () {
-                    if (currentPage != "Account") {
-                      Navigator.pushReplacementNamed(context, '/account');
-                    }
-                  },
-                  iconColor: ArgonColors.info,
-                  title: "Account",
-                  isSelected: currentPage == "Account" ? true : false),
-              DrawerTile(
-                  icon: Icons.settings_input_component,
-                  onTap: () {
-                    if (currentPage != "Elements") {
-                      Navigator.pushReplacementNamed(context, '/elements');
-                    }
-                  },
-                  iconColor: ArgonColors.error,
-                  title: "Elements",
-                  isSelected: currentPage == "Elements" ? true : false),
+              
+              // DrawerTile(
+              //     icon: Icons.settings_input_component,
+              //     onTap: () {
+              //       if (currentPage != "Elements") {
+              //         Navigator.pushReplacementNamed(context, '/elements');
+              //       }
+              //     },
+              //     iconColor: ArgonColors.error,
+              //     title: "Elements",
+              //     isSelected: currentPage == "Elements" ? true : false),
               DrawerTile(
                   icon: Icons.apps,
                   onTap: () {
-                    if (currentPage != "Articles") {
-                      Navigator.pushReplacementNamed(context, '/articles');
+                    if (currentPage != "Products") {
+                      Navigator.pushReplacementNamed(context, '/Products');
                     }
                   },
                   iconColor: ArgonColors.primary,
-                  title: "Articles",
-                  isSelected: currentPage == "Articles" ? true : false),
+                  title: "Products",
+                  isSelected: currentPage == "Products" ? true : false),
+                  
             ],
           ),
         ),
@@ -108,19 +100,22 @@ class ArgonDrawer extends StatelessWidget {
                   const Padding(
                     padding:
                         EdgeInsets.only(top: 16.0, left: 16, bottom: 8),
-                    child: Text("DOCUMENTATION",
+                    child: Text("Setting",
                         style: TextStyle(
                           color: Color.fromRGBO(0, 0, 0, 0.5),
                           fontSize: 15,
                         )),
                   ),
                   DrawerTile(
-                      icon: Icons.airplanemode_active,
-                      onTap: _launchURL,
-                      iconColor: ArgonColors.muted,
-                      title: "Getting Started",
-                      isSelected:
-                          currentPage == "Getting started" ? true : false),
+                  icon: Icons.logout,
+                  onTap: () {
+                    //if (currentPage != "Log out") {
+                      Navigator.pushReplacementNamed(context, '/login');
+                    //}
+                  },
+                  iconColor: ArgonColors.info,
+                  title: "Log out",
+                  isSelected: currentPage == "Log out" ? true : false),
                 ],
               )),
         ),

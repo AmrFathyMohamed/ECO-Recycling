@@ -1,78 +1,117 @@
+import 'package:eco/screens/onboard_2_view.dart';
+import 'package:eco/screens/center_next_button.dart';
+import 'package:eco/screens/onboard_3_view.dart';
+import 'package:eco/screens/onboard_1_view.dart';
+import 'package:eco/screens/onboard_0_view.dart';
+import 'package:eco/screens/top_back_skip_view.dart';
+import 'package:eco/screens/onboard_4_view.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/Theme.dart';
-
-class Onboarding extends StatelessWidget {
+class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
 
   @override
+  _OnboardingState createState() =>
+      _OnboardingState();
+}
+
+class _OnboardingState
+    extends State<Onboarding> with TickerProviderStateMixin {
+  AnimationController? _animationController;
+
+  @override
+  void initState() {
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 8));
+    _animationController?.animateTo(0.0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print(_animationController?.value);
     return Scaffold(
-        body: Stack(children: <Widget>[
-      Container(
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/img/onboard-background.png"),
-                  fit: BoxFit.cover))),
-      Padding(
-        padding:
-            const EdgeInsets.only(top: 73, left: 32, right: 32, bottom: 16),
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Image.asset("assets/img/argon-logo-onboarding.png", scale: 1),
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 48.0),
-                    child: Text.rich(TextSpan(
-                      text: "Design System",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 58,
-                          fontWeight: FontWeight.w600),
-                    )),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 24.0),
-                    child: Text("Fully coded Flutter widgets and screens.",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w200)),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: FlatButton(
-                    textColor: ArgonColors.text,
-                    color: ArgonColors.secondary,
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/home');
-                    },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
-                    child: const Padding(
-                        padding: EdgeInsets.only(
-                            left: 16.0, right: 16.0, top: 12, bottom: 12),
-                        child: Text("GET STARTED",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 16.0))),
-                  ),
-                ),
-              )
-            ],
-          ),
+      backgroundColor: const Color(0xffffffff),
+      body: ClipRect(
+        child: Stack(
+          children: [
+            OnBoarding0View(
+              animationController: _animationController!,
+            ),
+            OnBoarding1View(
+              animationController: _animationController!,
+            ),
+            OnBoarding2View(
+              animationController: _animationController!,
+            ),
+            OnBoarding3View(
+              animationController: _animationController!,
+            ),
+            OnBoarding4View(
+              animationController: _animationController!,
+            ),
+            TopBackSkipView(
+              onBackClick: _onBackClick,
+              onSkipClick: _onSkipClick,
+              animationController: _animationController!,
+            ),
+            CenterNextButton(
+              animationController: _animationController!,
+              onNextClick: _onNextClick,
+            ),
+          ],
         ),
-      )
-    ]));
+      ),
+    );
+  }
+
+  void _onSkipClick() {
+    _animationController?.animateTo(0.8,
+        duration: const Duration(milliseconds: 1200));
+  }
+
+  void _onBackClick() {
+    if (_animationController!.value >= 0 &&
+        _animationController!.value <= 0.2) {
+      _animationController?.animateTo(0.0);
+    } else if (_animationController!.value > 0.2 &&
+        _animationController!.value <= 0.4) {
+      _animationController?.animateTo(0.2);
+    } else if (_animationController!.value > 0.4 &&
+        _animationController!.value <= 0.6) {
+      _animationController?.animateTo(0.4);
+    } else if (_animationController!.value > 0.6 &&
+        _animationController!.value <= 0.8) {
+      _animationController?.animateTo(0.6);
+    } else if (_animationController!.value > 0.8 &&
+        _animationController!.value <= 1.0) {
+      _animationController?.animateTo(0.8);
+    }
+  }
+
+  void _onNextClick() {
+    if (_animationController!.value >= 0 &&
+        _animationController!.value <= 0.2) {
+      _animationController?.animateTo(0.4);
+    } else if (_animationController!.value > 0.2 &&
+        _animationController!.value <= 0.4) {
+      _animationController?.animateTo(0.6);
+    } else if (_animationController!.value > 0.4 &&
+        _animationController!.value <= 0.6) {
+      _animationController?.animateTo(0.8);
+    } else if (_animationController!.value > 0.6 &&
+        _animationController!.value <= 0.8) {
+      _signUpClick();
+    }
+  }
+
+  void _signUpClick() {
+    Navigator.pop(context);
   }
 }

@@ -15,6 +15,7 @@ class Profile extends StatelessWidget {
         appBar: const Navbar(
           title: "Profile",
           transparent: true,
+          searchBar: true,
         ),
         backgroundColor: ArgonColors.bgColorScreen,
         drawer: const ArgonDrawer(currentPage: "Profile"),
@@ -23,7 +24,7 @@ class Profile extends StatelessWidget {
               decoration: const BoxDecoration(
                   image: DecorationImage(
                       alignment: Alignment.topCenter,
-                      image: AssetImage("assets/img/profile-screen-bg.png"),
+                      image: AssetImage("assets/img/recycling-garbage.jpg"),
                       fit: BoxFit.fitWidth))),
           SafeArea(
             child: ListView(children: [
@@ -149,14 +150,14 @@ class Profile extends StatelessWidget {
                                             ),
                                             Column(
                                               children: [
-                                                Text("10",
+                                                Text("1520",
                                                     style: TextStyle(
                                                         color: Color.fromRGBO(
                                                             82, 95, 127, 1),
                                                         fontSize: 20.0,
                                                         fontWeight:
                                                             FontWeight.bold)),
-                                                Text("Photos",
+                                                Text("Points",
                                                     style: TextStyle(
                                                         color: Color.fromRGBO(
                                                             50, 50, 93, 1),
@@ -183,7 +184,7 @@ class Profile extends StatelessWidget {
                                         ),
                                         const SizedBox(height: 40.0),
                                         const Align(
-                                          child: Text("Jessica Jones, 27",
+                                          child: Text("Qism Bani Sweif, 27",
                                               style: TextStyle(
                                                   color: Color.fromRGBO(
                                                       50, 50, 93, 1),
@@ -191,7 +192,7 @@ class Profile extends StatelessWidget {
                                         ),
                                         const SizedBox(height: 10.0),
                                         const Align(
-                                          child: Text("San Francisco, USA",
+                                          child: Text("Beni Suef, Egypt",
                                               style: TextStyle(
                                                   color: Color.fromRGBO(
                                                       50, 50, 93, 1),
@@ -209,7 +210,7 @@ class Profile extends StatelessWidget {
                                               left: 32.0, right: 32.0),
                                           child: Align(
                                             child: Text(
-                                                "An artist of considerable range, Jessica name taken by Melbourne...",
+                                                "An artist of considerable range, Abd El Ghany name taken by Melbourne...",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Color.fromRGBO(
@@ -227,107 +228,7 @@ class Profile extends StatelessWidget {
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: 16.0))),
                                         const SizedBox(height: 25.0),
-                                        const Padding(
-                                          padding: EdgeInsets.only(
-                                              right: 25.0, left: 25.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "Album",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16.0,
-                                                    color: ArgonColors.text),
-                                              ),
-                                              Text(
-                                                "View All",
-                                                style: TextStyle(
-                                                    color: ArgonColors.primary,
-                                                    fontSize: 13.0,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 250,
-                                          child: GridView.count(
-                                              primary: false,
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: 24.0,
-                                                  vertical: 15.0),
-                                              crossAxisSpacing: 10,
-                                              mainAxisSpacing: 10,
-                                              crossAxisCount: 3,
-                                              children: <Widget>[
-                                                Container(
-                                                    height: 100,
-                                                    decoration: const BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  6.0)),
-                                                      image: DecorationImage(
-                                                          image: NetworkImage(
-                                                              "https://images.unsplash.com/photo-1501601983405-7c7cabaa1581?fit=crop&w=240&q=80"),
-                                                          fit: BoxFit.cover),
-                                                    )),
-                                                Container(
-                                                    decoration: const BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(6.0)),
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          "https://images.unsplash.com/photo-1543747579-795b9c2c3ada?fit=crop&w=240&q=80hoto-1501601983405-7c7cabaa1581?fit=crop&w=240&q=80"),
-                                                      fit: BoxFit.cover),
-                                                )),
-                                                Container(
-                                                    decoration: const BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(6.0)),
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          "https://images.unsplash.com/photo-1551798507-629020c81463?fit=crop&w=240&q=80"),
-                                                      fit: BoxFit.cover),
-                                                )),
-                                                Container(
-                                                    decoration: const BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(6.0)),
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?fit=crop&w=240&q=80"),
-                                                      fit: BoxFit.cover),
-                                                )),
-                                                Container(
-                                                    decoration: const BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(6.0)),
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          "https://images.unsplash.com/photo-1503642551022-c011aafb3c88?fit=crop&w=240&q=80"),
-                                                      fit: BoxFit.cover),
-                                                )),
-                                                Container(
-                                                    decoration: const BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(6.0)),
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          "https://images.unsplash.com/photo-1482686115713-0fbcaced6e28?fit=crop&w=240&q=80"),
-                                                      fit: BoxFit.cover),
-                                                )),
-                                              ]),
-                                        )
-                                      ],
+                                        ],
                                     ),
                                   ),
                                 ],
@@ -337,11 +238,11 @@ class Profile extends StatelessWidget {
                       const FractionalTranslation(
                           translation: Offset(0.0, -0.5),
                           child: Align(
-                            alignment: FractionalOffset(0.5, 0.0),
+                            alignment: FractionalOffset(0.5, 0.5),
                             child: CircleAvatar(
                               backgroundImage: AssetImage(
-                                  "assets/img/profile-screen-avatar.jpg"),
-                              radius: 65.0,
+                                  "assets/img/Person.png"),
+                              radius: 80.0,
                               // maxRadius: 200.0,
                             ),
                           ))

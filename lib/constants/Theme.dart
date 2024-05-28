@@ -5,10 +5,15 @@ class ArgonColors {
   static const Color black = Color(0xFF000000);
 
   static const Color white = Color(0xFFFFFFFF);
+static const Color whiteOpacity = Color.fromARGB(0, 255, 255, 255);
+
+
 
   static const Color initial = Color.fromRGBO(23, 43, 77, 1.0);
 
   static const Color primary = Color.fromRGBO(94, 114, 228, 1.0);
+
+  static const Color primaryGr = Color.fromRGBO(34, 213, 28, 1);
 
   static const Color secondary = Color.fromRGBO(247, 250, 252, 1.0);
 
@@ -35,6 +40,8 @@ class ArgonColors {
   static const Color muted = Color.fromRGBO(136, 152, 170, 1.0);
 
   static const Color text = Color.fromRGBO(50, 50, 93, 1.0);
+  static const Color danger = Color.fromRGBO(255, 0, 0, 1);
+
 }
 
 final ThemeData myTheme = ThemeData(

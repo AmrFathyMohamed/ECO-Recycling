@@ -1,73 +1,56 @@
 import 'package:flutter/material.dart';
-import '../constants/Theme.dart';
 
 class CardSmall extends StatelessWidget {
-  const CardSmall(
-      {super.key, this.title = "Placeholder Title",
-      this.cta = "",
-      this.img = "https://via.placeholder.com/200",
-      this.tap = defaultFunc});
-
   final String cta;
-  final String img;
-  final tap;
   final String title;
+  final String img;
+  final VoidCallback tap;
+  final int quantity;
+  final VoidCallback onIncrement;
+  final VoidCallback onDecrement;
 
-  static void defaultFunc() {
-    print("the function works!");
-  }
+  const CardSmall({super.key, 
+    required this.cta,
+    required this.title,
+    required this.img,
+    required this.tap,
+    required this.quantity,
+    required this.onIncrement,
+    required this.onDecrement,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-        child: SizedBox(
-      height: 235,
-      child: GestureDetector(
-        onTap: tap,
-        child: Card(
-            elevation: 0.4,
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Flexible(
-                    flex: 2,
-                    child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(6.0),
-                                topRight: Radius.circular(6.0)),
-                            image: DecorationImage(
-                              image: NetworkImage(img),
-                              fit: BoxFit.cover,
-                            )))),
-                Flexible(
-                    flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 8.0, bottom: 8.0, left: 8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(title,
-                              style: const TextStyle(
-                                  color: ArgonColors.header, fontSize: 13)),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Text(cta,
-                                style: const TextStyle(
-                                    color: ArgonColors.primary,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w600)),
-                          )
-                        ],
-                      ),
-                    ))
-              ],
-            )),
+    return Card(
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
       ),
-    ));
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Image.asset(img, fit: BoxFit.cover),
+          Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.remove),
+                onPressed: onDecrement,
+              ),
+              Text('$quantity'),
+              IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: onIncrement,
+              ),
+            ],
+          ),
+          ElevatedButton(
+            onPressed: tap,
+            child: Text(cta),
+          ),
+        ],
+      ),
+    );
   }
 }

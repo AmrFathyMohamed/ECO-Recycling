@@ -3,7 +3,7 @@ import '../constants/Theme.dart';
 
 class CardSquare extends StatelessWidget {
   const CardSquare(
-      {super.key, this.title = "Placeholder Title",
+      {super.key, this.title = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
       this.cta = "",
       this.img = "https://via.placeholder.com/200",
       this.tap = defaultFunc});
@@ -25,14 +25,14 @@ class CardSquare extends StatelessWidget {
         child: GestureDetector(
           onTap: tap,
           child: Card(
-              elevation: 0.4,
+              //elevation: 0.4,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Flexible(
-                      flex: 3,
+                      flex: 2,
                       child: Container(
                           decoration: BoxDecoration(
                               borderRadius: const BorderRadius.only(
@@ -40,7 +40,7 @@ class CardSquare extends StatelessWidget {
                                   topRight: Radius.circular(6.0)),
                               image: DecorationImage(
                                 image: NetworkImage(img),
-                                fit: BoxFit.cover,
+                                fit: BoxFit.fill,
                               )))),
                   Flexible(
                       flex: 1,
@@ -49,7 +49,7 @@ class CardSquare extends StatelessWidget {
                             top: 8.0, bottom: 8.0, left: 8.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(title,
                                 style: const TextStyle(

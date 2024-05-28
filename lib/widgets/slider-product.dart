@@ -1,12 +1,13 @@
 // ignore_for_file: unused_field
 
+import 'package:eco/helper/product.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import '../constants/Theme.dart';
 
 class ProductCarousel extends StatefulWidget {
-  final List<Map<String, String>> imgArray;
+  final List<Product> imgArray;
 
   const ProductCarousel({
     super.key,
@@ -26,13 +27,14 @@ class _ProductCarouselState extends State<ProductCarousel> {
       items: widget.imgArray
           .map((item) => Container(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         decoration: const BoxDecoration(boxShadow: [
                           BoxShadow(
-                              color: Color.fromRGBO(0, 0, 0, 0.4),
+                              color: Colors.transparent,
                               blurRadius: 8,
                               spreadRadius: 0.3,
                               offset: Offset(0, 3))
@@ -41,8 +43,8 @@ class _ProductCarouselState extends State<ProductCarousel> {
                           aspectRatio: 2 / 2,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(4),
-                            child: Image.network(
-                              item["img"]!,
+                            child: Image.asset(
+                              item.image,
                               fit: BoxFit.cover,
                               alignment: Alignment.topCenter,
                             ),
@@ -54,17 +56,17 @@ class _ProductCarouselState extends State<ProductCarousel> {
                       padding: const EdgeInsets.only(top: 16.0),
                       child: Column(
                         children: [
-                          Text(item["price"]!,
+                          Text(item.price.toString(),
                               style: const TextStyle(
                                   fontSize: 16, color: ArgonColors.header)),
-                          Text(item["title"]!,
+                          Text(item.name,
                               style: const TextStyle(
                                   fontSize: 32, color: ArgonColors.text)),
                           Padding(
                             padding: const EdgeInsets.only(
                                 left: 16.0, right: 16.0, top: 8),
                             child: Text(
-                              item["description"]!,
+                              item.description,
                               style: const TextStyle(
                                   fontSize: 16, color: ArgonColors.muted),
                               textAlign: TextAlign.center,
@@ -78,7 +80,7 @@ class _ProductCarouselState extends State<ProductCarousel> {
               ))
           .toList(),
       options: CarouselOptions(
-          height: 530,
+          height: 500,
           autoPlay: false,
           enlargeCenterPage: false,
           aspectRatio: 4 / 4,

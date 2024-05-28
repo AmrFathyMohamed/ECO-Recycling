@@ -3,7 +3,7 @@ import '../constants/Theme.dart';
 
 class CardHorizontal extends StatelessWidget {
   const CardHorizontal(
-      {super.key, this.title = "Placeholder Title",
+      {super.key, this.title = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
       this.cta = "",
       this.img = "https://via.placeholder.com/200",
       this.tap = defaultFunc});
@@ -38,7 +38,7 @@ class CardHorizontal extends StatelessWidget {
                               bottomLeft: Radius.circular(6.0)),
                           image: DecorationImage(
                             image: NetworkImage(img),
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                           ))),
                 ),
                 Flexible(

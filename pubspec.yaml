@@ -16,6 +16,7 @@ dependencies:
   scrollable_positioned_list: ^0.3.8
   cupertino_icons: ^1.0.8
   flutter_lints: ^4.0.0
+  animations: ^2.0.11
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -34,7 +35,10 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/img/pro-background.png
+    - assets/img/recycling-garbage.jpg
+    - assets/img/recycling-garbage2.jpg
     - assets/img/onboard-background.png
+    - assets/img/Person.png
     - assets/img/logo-android.png
     - assets/img/logo-ios.png
     - assets/img/logo-argon.png
@@ -54,6 +58,7 @@ flutter:
     - assets/E-waste.png
     - assets/glass.png
     - assets/eco-logo.png
+    - assets/eco-icon.png
     - assets/onboarding_landing/0.png
     - assets/onboarding_landing/1.png
     - assets/onboarding_landing/2.png

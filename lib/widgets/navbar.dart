@@ -132,7 +132,7 @@ class _NavbarState extends State<Navbar> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, '/pro');
+                              Navigator.pushNamed(context, '/cart');
                             },
                             child: IconButton(
                                 icon: Icon(Icons.notifications_active,
@@ -146,7 +146,7 @@ class _NavbarState extends State<Navbar> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, '/pro');
+                              Navigator.pushNamed(context, '/cart');
                             },
                             child: IconButton(
                                 icon: Icon(Icons.shopping_basket,
@@ -174,7 +174,7 @@ class _NavbarState extends State<Navbar> {
                         suffixIcon:
                             const Icon(Icons.zoom_in, color: ArgonColors.muted),
                         onTap: () {
-                          Navigator.pushNamed(context, '/pro');
+                          Navigator.pushNamed(context, '/Products');
                         }),
                   ),
                 const SizedBox(
@@ -187,7 +187,7 @@ class _NavbarState extends State<Navbar> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/pro');
+                          Navigator.pushNamed(context, '/Products');
                         },
                         child: Row(
                           children: [
@@ -210,7 +210,7 @@ class _NavbarState extends State<Navbar> {
                       const SizedBox(width: 30),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/pro');
+                          Navigator.pushNamed(context, '/cart');
                         },
                         child: Row(
                           children: [

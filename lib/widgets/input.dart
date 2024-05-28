@@ -10,9 +10,11 @@ class Input extends StatelessWidget {
   final TextEditingController? controller;
   final bool autofocus;
   final Color borderColor;
+  
+  final bool password;
 
   const Input(
-      {super.key, this.placeholder,
+      {super.key, this.placeholder,this.password = false,
       this.suffixIcon,
       this.prefixIcon,
       this.onTap,
@@ -26,6 +28,7 @@ class Input extends StatelessWidget {
     return TextField(
         cursorColor: ArgonColors.muted,
         onTap: onTap,
+        obscureText: password,
         onChanged: onChanged,
         controller: controller,
         autofocus: autofocus,

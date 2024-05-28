@@ -308,7 +308,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final bool _checkboxValue = false;
 
   final double height = window.physicalSize.height;
 

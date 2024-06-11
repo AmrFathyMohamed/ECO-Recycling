@@ -21,7 +21,7 @@ class Input extends StatelessWidget {
       this.onChanged,
       this.autofocus = false,
       this.borderColor = ArgonColors.border,
-      this.controller});
+      this.controller, required String? Function(dynamic value) validator});
 
   @override
   Widget build(BuildContext context) {

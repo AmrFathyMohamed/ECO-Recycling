@@ -40,16 +40,15 @@ class _ProductCarouselState extends State<ProductCarousel> {
                               offset: Offset(0, 3))
                         ]),
                         child: AspectRatio(
-                          aspectRatio: 2 / 2,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(4),
-                            child: Image.asset(
-                              item.image,
-                              fit: BoxFit.cover,
-                              alignment: Alignment.topCenter,
-                            ),
-                          ),
-                        ),
+            aspectRatio: 2 / 2,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: Image.network(
+                item.image, // Use the network image URL here
+                fit: BoxFit.cover,
+                alignment: Alignment.topCenter,
+              ),
+            ),)
                       ),
                     ),
                     Padding(

@@ -22,7 +22,8 @@ class Navbar extends StatefulWidget implements PreferredSizeWidget {
   final Color bgColor;
 
   const Navbar(
-      {super.key, this.title = "Home",
+      {super.key,
+      this.title = "Home",
       this.categoryOne = "",
       this.categoryTwo = "",
       this.tags,
@@ -38,13 +39,13 @@ class Navbar extends StatefulWidget implements PreferredSizeWidget {
       this.bgColor = ArgonColors.white,
       this.searchBar = false});
 
-  final double _prefferedHeight = 180.0;
+  final double _preferredHeight = 180.0;
 
   @override
   _NavbarState createState() => _NavbarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(_prefferedHeight);
+  Size get preferredSize => Size.fromHeight(_preferredHeight);
 }
 
 class _NavbarState extends State<Navbar> {
@@ -64,31 +65,42 @@ class _NavbarState extends State<Navbar> {
   Widget build(BuildContext context) {
     final bool categories =
         widget.categoryOne.isNotEmpty && widget.categoryTwo.isNotEmpty;
-    final bool tagsExist =
-        widget.tags == null ? false : (widget.tags != null ? false : true);
+    final bool tagsExist = widget.tags != null && widget.tags!.isNotEmpty;
+
+    double calculateHeight() {
+      double height = 102.0; // Base height without search bar or categories
+
+      if (widget.searchBar) {
+        height += 48.0; // Adjust for the search bar
+      }
+      if (categories) {
+        height += 48.0; // Adjust for categories
+      }
+      if (tagsExist) {
+        height += 40.0; // Adjust for tags
+      }
+      return height;
+    }
 
     return Container(
-        height: widget.searchBar
-            ? (!categories
-                ? (tagsExist ? 211.0 : 178.0)
-                : (tagsExist ? 262.0 : 210.0))
-            : (!categories
-                ? (tagsExist ? 162.0 : 102.0)
-                : (tagsExist ? 200.0 : 150.0)),
-        decoration: BoxDecoration(
-            color: !widget.transparent ? widget.bgColor : Colors.transparent,
-            boxShadow: [
-              BoxShadow(
-                  color: !widget.transparent && !widget.noShadow
-                      ? ArgonColors.initial
-                      : Colors.transparent,
-                  spreadRadius: -10,
-                  blurRadius: 12,
-                  offset: const Offset(0, 5))
-            ]),
-        child: SafeArea(
+      height: calculateHeight(),
+      decoration: BoxDecoration(
+        color: !widget.transparent ? widget.bgColor : Colors.transparent,
+        boxShadow: [
+          BoxShadow(
+            color: !widget.transparent && !widget.noShadow
+                ? ArgonColors.initial
+                : Colors.transparent,
+            spreadRadius: -10,
+            blurRadius: 12,
+            offset: const Offset(0, 5),
+          )
+        ],
+      ),
+      child: SafeArea(
+        child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               children: [
                 Row(
@@ -98,88 +110,114 @@ class _NavbarState extends State<Navbar> {
                     Row(
                       children: [
                         IconButton(
-                            icon: Icon(
-                                !widget.backButton
-                                    ? Icons.menu
-                                    : Icons.arrow_back_ios,
-                                color: !widget.transparent
-                                    ? (widget.bgColor == ArgonColors.white
-                                        ? ArgonColors.initial
-                                        : ArgonColors.white)
-                                    : ArgonColors.white,
-                                size: 24.0),
-                            onPressed: () {
-                              if (!widget.backButton) {
-                                Scaffold.of(context).openDrawer();
-                              } else {
-                                Navigator.pop(context);
-                              }
-                            }),
-                        Text(widget.title,
-                            style: TextStyle(
-                                color: !widget.transparent
-                                    ? (widget.bgColor == ArgonColors.white
-                                        ? ArgonColors.initial
-                                        : ArgonColors.white)
-                                    : ArgonColors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18.0)),
+                          icon: Icon(
+                            !widget.backButton ? Icons.menu : Icons.arrow_back_ios,
+                            color: !widget.transparent
+                                ? (widget.bgColor == ArgonColors.white
+                                    ? ArgonColors.initial
+                                    : ArgonColors.white)
+                                : ArgonColors.white,
+                            size: 24.0,
+                          ),
+                          onPressed: () {
+                            if (!widget.backButton) {
+                              Scaffold.of(context).openDrawer();
+                            } else {
+                              Navigator.pop(context);
+                            }
+                          },
+                        ),
+                        Text(
+                          widget.title,
+                          style: TextStyle(
+                            color: !widget.transparent
+                                ? (widget.bgColor == ArgonColors.white
+                                    ? ArgonColors.initial
+                                    : ArgonColors.white)
+                                : ArgonColors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18.0,
+                          ),
+                        ),
                       ],
                     ),
                     if (widget.rightOptions)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
+                          
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, '/cart');
+                              Navigator.pushNamed(context, '/chat');
                             },
                             child: IconButton(
-                                icon: Icon(Icons.notifications_active,
-                                    color: !widget.transparent
-                                        ? (widget.bgColor == ArgonColors.white
-                                            ? ArgonColors.initial
-                                            : ArgonColors.white)
-                                        : ArgonColors.white,
-                                    size: 22.0),
-                                onPressed: null),
+                              icon: Icon(
+                                Icons.smart_toy,
+                                color: !widget.transparent
+                                    ? (widget.bgColor == ArgonColors.white
+                                        ? ArgonColors.initial
+                                        : ArgonColors.white)
+                                    : ArgonColors.white,
+                                size: 22.0,
+                              ),
+                              onPressed: null,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/notifications');
+                            },
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.notifications_active,
+                                color: !widget.transparent
+                                    ? (widget.bgColor == ArgonColors.white
+                                        ? ArgonColors.initial
+                                        : ArgonColors.white)
+                                    : ArgonColors.white,
+                                size: 22.0,
+                              ),
+                              onPressed: null,
+                            ),
                           ),
                           GestureDetector(
                             onTap: () {
                               Navigator.pushNamed(context, '/cart');
                             },
                             child: IconButton(
-                                icon: Icon(Icons.shopping_basket,
-                                    color: !widget.transparent
-                                        ? (widget.bgColor == ArgonColors.white
-                                            ? ArgonColors.initial
-                                            : ArgonColors.white)
-                                        : ArgonColors.white,
-                                    size: 22.0),
-                                onPressed: null),
+                              icon: Icon(
+                                Icons.shopping_basket,
+                                color: !widget.transparent
+                                    ? (widget.bgColor == ArgonColors.white
+                                        ? ArgonColors.initial
+                                        : ArgonColors.white)
+                                    : ArgonColors.white,
+                                size: 22.0,
+                              ),
+                              onPressed: null,
+                            ),
                           ),
                         ],
-                      )
+                      ),
                   ],
                 ),
                 if (widget.searchBar)
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 8, bottom: 4, left: 15, right: 15),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
                     child: Input(
-                        placeholder: "What are you looking for?",
-                        controller: widget.searchController,
-                        onChanged: widget.searchOnChanged,
-                        autofocus: widget.searchAutofocus,
-                        suffixIcon:
-                            const Icon(Icons.zoom_in, color: ArgonColors.muted),
-                        onTap: () {
-                          Navigator.pushNamed(context, '/Products');
-                        }),
+                      placeholder: "What are you looking for?",
+                      controller: widget.searchController,
+                      onChanged: widget.searchOnChanged,
+                      autofocus: widget.searchAutofocus,
+                      suffixIcon:
+                          const Icon(Icons.zoom_in, color: ArgonColors.muted),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/Products');
+                      }, validator: (value) {  },
+                    ),
                   ),
-                const SizedBox(
-                  height: 10.0,
-                ),
+                const SizedBox(height: 10.0),
                 if (categories)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -194,10 +232,13 @@ class _NavbarState extends State<Navbar> {
                             const Icon(Icons.camera,
                                 color: ArgonColors.initial, size: 22.0),
                             const SizedBox(width: 10),
-                            Text(widget.categoryOne,
-                                style: const TextStyle(
-                                    color: ArgonColors.initial,
-                                    fontSize: 16.0)),
+                            Text(
+                              widget.categoryOne,
+                              style: const TextStyle(
+                                color: ArgonColors.initial,
+                                fontSize: 16.0,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -217,13 +258,16 @@ class _NavbarState extends State<Navbar> {
                             const Icon(Icons.shopping_cart,
                                 color: ArgonColors.initial, size: 22.0),
                             const SizedBox(width: 10),
-                            Text(widget.categoryTwo,
-                                style: const TextStyle(
-                                    color: ArgonColors.initial,
-                                    fontSize: 16.0)),
+                            Text(
+                              widget.categoryTwo,
+                              style: const TextStyle(
+                                color: ArgonColors.initial,
+                                fontSize: 16.0,
+                              ),
+                            ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 if (tagsExist)
@@ -239,41 +283,47 @@ class _NavbarState extends State<Navbar> {
                             if (activeTag != widget.tags![index]) {
                               setState(() => activeTag = widget.tags![index]);
                               _scrollController.scrollTo(
-                                  index:
-                                      index == widget.tags!.length - 1 ? 1 : 0,
-                                  duration: const Duration(milliseconds: 420),
-                                  curve: Curves.easeIn);
+                                index: index == widget.tags!.length - 1 ? 1 : 0,
+                                duration: const Duration(milliseconds: 420),
+                                curve: Curves.easeIn,
+                              );
                               widget.getCurrentPage!(activeTag);
                             }
                           },
                           child: Container(
-                              margin: EdgeInsets.only(
-                                  left: index == 0 ? 46 : 8, right: 8),
-                              padding: const EdgeInsets.only(
-                                  top: 4, bottom: 4, left: 20, right: 20),
-                              // width: 90,
-                              decoration: BoxDecoration(
+                            margin: EdgeInsets.only(
+                                left: index == 0 ? 46 : 8, right: 8),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 20),
+                            decoration: BoxDecoration(
+                              color: activeTag == widget.tags?[index]
+                                  ? ArgonColors.primary
+                                  : ArgonColors.secondary,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(4.0)),
+                            ),
+                            child: Center(
+                              child: Text(
+                                widget.tags![index],
+                                style: TextStyle(
                                   color: activeTag == widget.tags?[index]
-                                      ? ArgonColors.primary
-                                      : ArgonColors.secondary,
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.circular(4.0))),
-                              child: Center(
-                                child: Text(widget.tags![index],
-                                    style: TextStyle(
-                                        color: activeTag == widget.tags?[index]
-                                            ? ArgonColors.white
-                                            : ArgonColors.black,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.0)),
-                              )),
+                                      ? ArgonColors.white
+                                      : ArgonColors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14.0,
+                                ),
+                              ),
+                            ),
+                          ),
                         );
                       },
                     ),
-                  )
+                  ),
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

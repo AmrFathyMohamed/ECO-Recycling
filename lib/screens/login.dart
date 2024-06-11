@@ -1,306 +1,18 @@
-// // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-// import 'dart:ui';
-// import 'package:flutter/material.dart';
-// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-// import '../constants/Theme.dart';
-
-// //widgets
-// import '../widgets/navbar.dart';
-// import '../widgets/input.dart';
-
-// import '../widgets/drawer.dart';
-
-// class Login extends StatefulWidget {
-//   const Login({super.key});
-
-//   @override
-//   _LoginState createState() => _LoginState();
-// }
-
-// class _LoginState extends State<Login> {
-//   bool _checkboxValue = false;
-
-//   final double height = window.physicalSize.height;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         // appBar: Navbar(transparent: true, title: ""),
-//         extendBodyBehindAppBar: true,
-//         drawer: ArgonDrawer(currentPage: "Account"),
-//         body: Stack(
-//           children: [
-//             Container(
-//               decoration: BoxDecoration(
-//                   image: DecorationImage(
-//                       image: AssetImage("assets/img/recycling-garbage.jpg"),
-//                       fit: BoxFit.fitHeight)),
-//             ),
-//             SafeArea(
-//               child: ListView(children: [
-//                 Padding(
-//                   padding: EdgeInsets.only(
-//                       top: 60, left: 24.0, right: 24.0, bottom: 60),
-//                   child: Card(
-//                       elevation: 5,
-//                       clipBehavior: Clip.antiAlias,
-//                       shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadius.circular(25.0),
-//                       ),
-//                       child: Column(
-//                         children: [
-//                           Container(
-//                               height: MediaQuery.of(context).size.height * 0.20,
-//                               decoration: BoxDecoration(
-//                                   color: ArgonColors.white,
-//                                   border: Border(
-//                                       bottom: BorderSide(
-//                                           width: 0.5,
-//                                           color: ArgonColors.muted))),
-//                               child: Column(
-//                                 mainAxisAlignment:
-//                                     MainAxisAlignment.spaceAround,
-//                                 children: [
-//                                   Center(
-//                                     child: Padding(
-//                                       padding: EdgeInsets.only(top: 8.0),
-//                                       child: Image.asset(
-//                                         'assets/eco-icon.png', // Update with your app logo path
-//                                         height: 50,
-//                                       ),
-//                                     ),
-//                                   ),
-//                                   Center(
-//                                       child: Padding(
-//                                     padding: EdgeInsets.only(top: 8.0),
-//                                     child: Text("Log in with",
-//                                         style: TextStyle(
-//                                             color: ArgonColors.text,
-//                                             fontSize: 16.0)),
-//                                   )),
-//                                  Center(
-//                                         child: Row(
-//                                           mainAxisAlignment:
-//                                               MainAxisAlignment.spaceAround,
-//                                           children: [
-//                                             SizedBox(
-//                                               //height: 69,
-//                                               child: ElevatedButton(
-//                                                 style: ElevatedButton.styleFrom(
-//                                                   foregroundColor:
-//                                                       ArgonColors.white,
-//                                                   backgroundColor: ArgonColors
-//                                                       .primary, // Text color
-//                                                   shape: RoundedRectangleBorder(
-//                                                     borderRadius:
-//                                                         BorderRadius.circular(
-//                                                             4),
-//                                                   ),
-//                                                 ),
-//                                                 onPressed: () {},
-//                                                 child: Padding(
-//                                                   padding: EdgeInsets.only(
-//                                                       bottom: 10,
-//                                                       top: 10,
-//                                                       left: 14,
-//                                                       right: 14),
-//                                                   child: Row(
-//                                                     mainAxisAlignment:
-//                                                         MainAxisAlignment
-//                                                             .spaceAround,
-//                                                     children: [
-//                                                       Icon(
-//                                                           FontAwesomeIcons
-//                                                               .google,
-//                                                           size: 13),
-//                                                       SizedBox(width: 5),
-//                                                       Text("GOOGLE",
-//                                                           style: TextStyle(
-//                                                               fontWeight:
-//                                                                   FontWeight
-//                                                                       .w600,
-//                                                               fontSize: 13)),
-//                                                     ],
-//                                                   ),
-//                                                 ),
-//                                               ),
-//                                             ),
-//                                             SizedBox(
-//                                               //height: 36,
-//                                               child: ElevatedButton(
-//                                                 style: ElevatedButton.styleFrom(
-//                                                   foregroundColor:
-//                                                       ArgonColors.white,
-//                                                   backgroundColor: ArgonColors
-//                                                       .primary, // Text color
-//                                                   shape: RoundedRectangleBorder(
-//                                                     borderRadius:
-//                                                         BorderRadius.circular(
-//                                                             4),
-//                                                   ),
-//                                                 ),
-//                                                 onPressed: () {},
-//                                                 child: Padding(
-//                                                   padding: EdgeInsets.only(
-//                                                       bottom: 10,
-//                                                       top: 10,
-//                                                       left: 8,
-//                                                       right: 8),
-//                                                   child: Row(
-//                                                     mainAxisAlignment:
-//                                                         MainAxisAlignment
-//                                                             .spaceAround,
-//                                                     children: [
-//                                                       Icon(
-//                                                           FontAwesomeIcons
-//                                                               .facebook,
-//                                                           size: 13),
-//                                                       SizedBox(width: 5),
-//                                                       Text("FACEBOOK",
-//                                                           style: TextStyle(
-//                                                               fontWeight:
-//                                                                   FontWeight
-//                                                                       .w600,
-//                                                               fontSize: 13)),
-//                                                     ],
-//                                                   ),
-//                                                 ),
-//                                               ),
-//                                             ),
-//                                           ],
-//                                         ),
-//                                       ),
-//                                       ],
-//                               )),
-//                           Container(
-//                               height: MediaQuery.of(context).size.height * 0.50,
-//                               color: Color.fromRGBO(244, 245, 247, 1),
-//                               child: Padding(
-//                                 padding: EdgeInsets.all(8.0),
-//                                 child: Center(
-//                                   child: Column(
-//                                     crossAxisAlignment:
-//                                         CrossAxisAlignment.start,
-//                                     mainAxisAlignment:
-//                                         MainAxisAlignment.spaceAround,
-//                                     children: [
-//                                       Padding(
-//                                         padding: EdgeInsets.only(
-//                                             top: 24.0, bottom: 24.0),
-//                                         child: Center(
-//                                       child: Padding(
-//                                     padding: EdgeInsets.only(top: 8.0),
-//                                     child: Text("Or log in with your email",
-//                                         style: TextStyle(
-//                                             color: ArgonColors.text,
-//                                             fontSize: 16.0)),
-//                                   )),
-//                                       ),
-//                                       Column(
-//                                         crossAxisAlignment:
-//                                             CrossAxisAlignment.start,
-//                                         children: [
-//                                           Padding(
-//                                             padding: EdgeInsets.all(8.0),
-//                                             child: Input(
-//                                                 placeholder: "Email",
-//                                                 prefixIcon: Icon(Icons.email)),
-//                                           ),
-//                                           Padding(
-//                                             padding: EdgeInsets.all(8.0),
-//                                             child: Input(
-//                                                 placeholder: "Password",
-//                                                 prefixIcon: Icon(Icons.lock)),
-//                                           ),
-//                                         ],
-//                                       ),
-//                                       Padding(
-//                                         padding: EdgeInsets.only(top: 16),
-//                                         child: Center(
-//                                           child: FlatButton(
-//                                             textColor: ArgonColors.white,
-//                                             color: ArgonColors.primary,
-//                                             onPressed: () {
-//                                               // Respond to button press
-//                                               Navigator.pushNamed(
-//                                                   context, '/home');
-//                                             },
-//                                             shape: RoundedRectangleBorder(
-//                                               borderRadius:
-//                                                   BorderRadius.circular(25.0),
-//                                             ),
-//                                             child: Padding(
-//                                                 padding: EdgeInsets.only(
-//                                                     left: 8.0,
-//                                                     right: 8.0,
-//                                                     top: 8,
-//                                                     bottom: 8),
-//                                                 child: InkWell(
-//                                                   key: const ValueKey(
-//                                                       'Sign Up button'),
-//                                                   onTap: () {
-//                                                     Navigator.push(
-//                                                         context,
-//                                                         MaterialPageRoute(
-//                                                             builder: (context) =>
-//                                                                 const Login()));
-//                                                   },
-//                                                   child: const Padding(
-//                                                     padding: EdgeInsets.only(
-//                                                         left: 16.0,
-//                                                         right: 16.0),
-//                                                     child: Row(
-//                                                       mainAxisAlignment:
-//                                                           MainAxisAlignment
-//                                                               .spaceBetween,
-//                                                       children: [
-//                                                         Text(
-//                                                           'Login',
-//                                                           style: TextStyle(
-//                                                             color: Colors.white,
-//                                                             fontSize: 18,
-//                                                             fontWeight:
-//                                                                 FontWeight.w500,
-//                                                           ),
-//                                                         ),
-//                                                         Icon(Icons.login,
-//                                                             color:
-//                                                                 Colors.white),
-//                                                       ],
-//                                                     ),
-//                                                   ),
-//                                                 )),
-//                                           ),
-//                                         ),
-//                                       )
-//                                     ],
-//                                   ),
-//                                 ),
-//                               )
-//                               )
-//                         ],
-//                       )),
-//                 ),
-//               ]),
-//             )
-//           ],
-//         ));
-//   }
-// }
+import 'dart:convert';  // For json decoding
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http; // For making HTTP requests
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/Theme.dart';
 
-//widgets
+// widgets
 import '../widgets/input.dart';
 import '../widgets/drawer.dart';
+import 'home.dart';
 
 class Login extends StatefulWidget {
-  
   const Login({super.key});
 
   @override
@@ -308,8 +20,54 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   final double height = window.physicalSize.height;
+  final TextEditingController emailOrUsernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  String message = '';
+
+  Future<void> _login() async {
+    String url = 'http://192.168.1.5/ECO/Eco-skydah/Admin Dashboard/FlutterLogin.php';
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        body: {
+          'username': emailOrUsernameController.text,
+          'password': passwordController.text,
+        },
+      );
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = json.decode(response.body);
+        if (data['status'] == 'success') {
+          // Save user data to shared preferences
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('username', data['UserData']['FirstName']+ " " + data['UserData']['LastName']);
+          await prefs.setString('email', data['UserData']['Email']);
+          await prefs.setString('userid', data['UserData']['UserID'].toString());
+          await prefs.setString('points', data['UserData']['Points'].toString());
+          
+
+          // Navigate to home page
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const Home()),
+          );
+        } else {
+          setState(() {
+            message = 'Invalid username or password';
+          });
+        }
+      } else {
+        setState(() {
+          message = 'Failed to connect to server';
+        });
+      }
+    } catch (e) {
+      setState(() {
+        message = 'Error: $e';
+        print(message);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -329,7 +87,7 @@ class _LoginState extends State<Login> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
-                      top: 60, left: 24.0, right: 24.0, bottom: 60),
+                      top: 20, left: 24.0, right: 24.0, bottom: 20),
                   child: Card(
                     elevation: 5,
                     clipBehavior: Clip.antiAlias,
@@ -372,11 +130,9 @@ class _LoginState extends State<Login> {
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     SizedBox(
-                                      //height: 69,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           foregroundColor: ArgonColors.danger,
-                                          // backgroundColor: ArgonColors.white,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(100),
@@ -407,11 +163,9 @@ class _LoginState extends State<Login> {
                                       ),
                                     ),
                                     SizedBox(
-                                      //height: 36,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           foregroundColor: ArgonColors.primary,
-                                          // backgroundColor: ArgonColors.white,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(100),
@@ -448,15 +202,14 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         Container(
-                          height: MediaQuery.of(context).size.height * 0.50,
+                          height: MediaQuery.of(context).size.height * 0.60,
                           color: const Color.fromRGBO(244, 245, 247, 1),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Center(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
                                   const Padding(
                                     padding: EdgeInsets.only(
@@ -468,22 +221,26 @@ class _LoginState extends State<Login> {
                                               fontSize: 16.0)),
                                     ),
                                   ),
-                                  const Column(
+                                  Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.all(8.0),
                                         child: Input(
-                                            placeholder: "Email",
-                                            prefixIcon: Icon(Icons.email)),
+                                          placeholder: "Email",
+                                          prefixIcon: Icon(Icons.email),
+                                          controller: emailOrUsernameController, validator: (value) {  },
+                                        ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.all(8.0),
                                         child: Input(
-                                            placeholder: "Password",
-                                            prefixIcon: Icon(Icons.lock),
-                                            password: true),
+                                          placeholder: "Password",
+                                          prefixIcon: Icon(Icons.lock),
+                                          password: true,
+                                          controller: passwordController, validator: (value) {  },
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -499,10 +256,7 @@ class _LoginState extends State<Login> {
                                                 BorderRadius.circular(25.0),
                                           ),
                                         ),
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, '/home');
-                                        },
+                                        onPressed: _login,
                                         child: const Padding(
                                           padding: EdgeInsets.only(
                                               left: 16.0,
@@ -517,6 +271,19 @@ class _LoginState extends State<Login> {
                                       ),
                                     ),
                                   ),
+                                  if (message.isNotEmpty)
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 16),
+                                      child: Center(
+                                        child: Text(
+                                          message,
+                                          style: const TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

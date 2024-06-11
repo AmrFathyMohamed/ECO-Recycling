@@ -1,82 +1,140 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
-import 'package:eco/widgets/slider-product.dart';
 import 'package:flutter/material.dart';
-
 import '../constants/Theme.dart';
-
-//widgets
-import '../widgets/drawer.dart';
 import '../widgets/navbar.dart';
+import '../widgets/drawer.dart';
 import '../widgets/card-small.dart';
 import 'package:eco/helper/product.dart' as helperProduct;
+import 'package:eco/screens/cart.dart'; // Import Cart screen
 
-List<helperProduct.Product> products = helperProduct.getProducts();
-List<helperProduct.Product> filteredProducts = [];
-List<helperProduct.Product> cartItems = [];
+class Products extends StatefulWidget {
+  const Products({Key? key}) : super(key: key);
 
+  @override
+  _ProductsState createState() => _ProductsState();
+}
 
-class Products extends StatelessWidget {
-  const Products({super.key});
+class _ProductsState extends State<Products> {
+  List<helperProduct.Product> products = [];
+  List<helperProduct.Product> filteredProducts = [];
+  List<helperProduct.Product> cartItems = [];
+
+  String searchQuery = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProducts();
+  }
+
+  Future<void> _loadProducts() async {
+    try {
+      List<helperProduct.Product> fetchedProducts =
+          await helperProduct.fetchProducts();
+      setState(() {
+        products = fetchedProducts;
+        filteredProducts = products; // Initialize filteredProducts with all products initially
+      });
+    } catch (e) {
+      print('Error loading products: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        appBar: Navbar(
-          title: "Products",
-          searchBar: true,
-        ),
-        backgroundColor: ArgonColors.bgColorScreen,
-        drawer: ArgonDrawer(currentPage: "Products"),
-        body: Container(
-            padding: EdgeInsets.only(top: 24.0),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                SizedBox(height: 16.0),
-                  
-                  ProductCarousel(imgArray: products),
-                SizedBox(height: 16.0),
-                   GridView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.50,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
-                  ),
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    helperProduct.Product product = products[index];
-                    return CardSmall(
-                      cta: "View Details",
-                      title: product.name,
-                      img: product.image,
-                      quantity: product.quantity,
-                      tap: () {
-                        Navigator.pushNamed(context, '/pro');
-                      },
-                      onIncrement: () {
-                        setState(() {
-                          product.quantity++;
-                        });
-                      },
-                      onDecrement: () {
-                        setState(() {
-                          if (product.quantity > 0) product.quantity--;
-                        });
-                      },
-                    );
-                  },
+    return Scaffold(
+      appBar: Navbar(
+        title: "Products",
+        searchBar: true,
+        // searchQuery: searchQuery,
+        // onSearchChanged: (value) {
+        //   setState(() {
+        //     searchQuery = value;
+        //     filteredProducts = products
+        //         .where((product) => product.name
+        //             .toLowerCase()
+        //             .contains(searchQuery.toLowerCase()))
+        //         .toList();
+        //   });
+        // },
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(Icons.shopping_cart),
+        //     onPressed: () {
+        //       // Navigate to cart screen
+        //       navigateToCartScreen();
+        //     },
+        //   ),
+        // ],
+      ),
+      backgroundColor: ArgonColors.bgColorScreen,
+      drawer: ArgonDrawer(currentPage: "Products"),
+      body: Container(
+        padding: EdgeInsets.only(top: 24.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(height: 16.0),
+              // Replace with your ProductCarousel widget
+              // ProductCarousel(imgArray: products), 
+              SizedBox(height: 16.0),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.50,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
                 ),
-                SizedBox(height: 16.0),
-                
-                ],
+                itemCount: filteredProducts.length,
+                itemBuilder: (context, index) {
+                  helperProduct.Product product = filteredProducts[index];
+                  return CardSmall(
+                    cta: "",
+                    title: product.name,
+                    img: product.image,
+                    quantity: product.quantity,
+                    tap: () {
+                      // Navigate to Cart screen and add product to cart
+                      addToCart(product);
+                      navigateToCartScreen();
+                    },
+                    onIncrement: () {
+                      setState(() {
+                        product.quantity++;
+                      });
+                    },
+                    onDecrement: () {
+                      setState(() {
+                        if (product.quantity > 0) product.quantity--;
+                      });
+                    },
+                  );
+                },
               ),
-            )));
+              SizedBox(height: 16.0),
+            ],
+          ),
+        ),
+      ),
+    );
   }
-  
-  void setState(Null Function() param0) {}
+
+  // Method to add product to cart
+  void addToCart(helperProduct.Product product) {
+    setState(() {
+      cartItems.add(product);
+    });
+  }
+
+  // Method to navigate to Cart screen
+  void navigateToCartScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Cart(cartItems: cartItems),
+      ),
+    );
+  }
 }

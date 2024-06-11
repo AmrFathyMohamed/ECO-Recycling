@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/Theme.dart';
 
 //widgets
 import '../widgets/navbar.dart';
 import '../widgets/drawer.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
+
   const Profile({super.key});
+
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  String username = '';
+  String points = '';
+
+  
+  get currentPage => null;
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      username = prefs.getString('username') ?? 'Guest';
+      points = prefs.getString('points') ?? '0';
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +41,8 @@ class Profile extends StatelessWidget {
         extendBodyBehindAppBar: true,
         appBar: const Navbar(
           title: "Profile",
-          transparent: true,
-          searchBar: true,
+          transparent: false,
+          // searchBar: true,
         ),
         backgroundColor: ArgonColors.bgColorScreen,
         drawer: const ArgonDrawer(currentPage: "Profile"),
@@ -25,12 +52,12 @@ class Profile extends StatelessWidget {
                   image: DecorationImage(
                       alignment: Alignment.topCenter,
                       image: AssetImage("assets/img/recycling-garbage.jpg"),
-                      fit: BoxFit.fitWidth))),
+                      fit: BoxFit.contain))),
           SafeArea(
             child: ListView(children: [
               Padding(
                 padding:
-                    const EdgeInsets.only(left: 16.0, right: 16.0, top: 74.0),
+                    const EdgeInsets.only(left: 16.0, right: 16.0, top: 90.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -62,79 +89,88 @@ class Profile extends StatelessWidget {
                                   Expanded(
                                     child: Column(
                                       children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: ArgonColors.info,
-                                                borderRadius:
-                                                    BorderRadius.circular(3.0),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.grey
-                                                        .withOpacity(0.3),
-                                                    spreadRadius: 1,
-                                                    blurRadius: 7,
-                                                    offset: const Offset(0,
-                                                        3), // changes position of shadow
-                                                  ),
-                                                ],
-                                              ),
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: 8.0,
-                                                  vertical: 8.0),
-                                              child: const Text(
-                                                "CONNECT",
-                                                style: TextStyle(
-                                                    color: ArgonColors.white,
-                                                    fontSize: 12.0,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 30.0,
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: ArgonColors.initial,
-                                                borderRadius:
-                                                    BorderRadius.circular(3.0),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.grey
-                                                        .withOpacity(0.3),
-                                                    spreadRadius: 1,
-                                                    blurRadius: 7,
-                                                    offset: const Offset(0,
-                                                        3), // changes position of shadow
-                                                  ),
-                                                ],
-                                              ),
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: 8.0,
-                                                  vertical: 8.0),
-                                              child: const Text(
-                                                "MESSAGE",
-                                                style: TextStyle(
-                                                    color: ArgonColors.white,
-                                                    fontSize: 12.0,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            )
-                                          ],
-                                        ),
                                         const SizedBox(height: 40.0),
-                                        const Row(
+                                        Align(
+                                          child: Text(username,
+                                              style: const TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      50, 50, 93, 1),
+                                                  fontSize: 28.0)),
+                                        ),
+                                        // Row(
+                                        //   mainAxisAlignment:
+                                        //       MainAxisAlignment.center,
+                                        //   children: [
+                                        //     Container(
+                                        //       decoration: BoxDecoration(
+                                        //         color: ArgonColors.info,
+                                        //         borderRadius:
+                                        //             BorderRadius.circular(3.0),
+                                        //         boxShadow: [
+                                        //           BoxShadow(
+                                        //             color: Colors.grey
+                                        //                 .withOpacity(0.3),
+                                        //             spreadRadius: 1,
+                                        //             blurRadius: 7,
+                                        //             offset: const Offset(0,
+                                        //                 3), // changes position of shadow
+                                        //           ),
+                                        //         ],
+                                        //       ),
+                                        //       padding: const EdgeInsets.symmetric(
+                                        //           horizontal: 8.0,
+                                        //           vertical: 8.0),
+                                        //       child: const Text(
+                                        //         "CONNECT",
+                                        //         style: TextStyle(
+                                        //             color: ArgonColors.white,
+                                        //             fontSize: 12.0,
+                                        //             fontWeight:
+                                        //                 FontWeight.bold),
+                                        //       ),
+                                        //     ),
+                                        //     const SizedBox(
+                                        //       width: 30.0,
+                                        //     ),
+                                        //     Container(
+                                        //       decoration: BoxDecoration(
+                                        //         color: ArgonColors.initial,
+                                        //         borderRadius:
+                                        //             BorderRadius.circular(3.0),
+                                        //         boxShadow: [
+                                        //           BoxShadow(
+                                        //             color: Colors.grey
+                                        //                 .withOpacity(0.3),
+                                        //             spreadRadius: 1,
+                                        //             blurRadius: 7,
+                                        //             offset: const Offset(0,
+                                        //                 3), // changes position of shadow
+                                        //           ),
+                                        //         ],
+                                        //       ),
+                                        //       padding: const EdgeInsets.symmetric(
+                                        //           horizontal: 8.0,
+                                        //           vertical: 8.0),
+                                        //       child: const Text(
+                                        //         "MESSAGE",
+                                        //         style: TextStyle(
+                                        //             color: ArgonColors.white,
+                                        //             fontSize: 12.0,
+                                        //             fontWeight:
+                                        //                 FontWeight.bold),
+                                        //       ),
+                                        //     )
+                                        //   ],
+                                        // ),
+                                        
+                                        const SizedBox(height: 40.0),
+                                        Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
                                           children: [
-                                            Column(
+                                            const Column(
                                               children: [
-                                                Text("2K",
+                                                Text("1K",
                                                     style: TextStyle(
                                                         color: Color.fromRGBO(
                                                             82, 95, 127, 1),
@@ -148,38 +184,22 @@ class Profile extends StatelessWidget {
                                                         fontSize: 12.0))
                                               ],
                                             ),
-                                            Column(
+                                             Column(
                                               children: [
-                                                Text("1520",
-                                                    style: TextStyle(
+                                                Text(points,
+                                                    style: const TextStyle(
                                                         color: Color.fromRGBO(
                                                             82, 95, 127, 1),
                                                         fontSize: 20.0,
                                                         fontWeight:
                                                             FontWeight.bold)),
-                                                Text("Points",
+                                                const Text("Points",
                                                     style: TextStyle(
                                                         color: Color.fromRGBO(
                                                             50, 50, 93, 1),
                                                         fontSize: 12.0))
                                               ],
                                             ),
-                                            Column(
-                                              children: [
-                                                Text("89",
-                                                    style: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            82, 95, 127, 1),
-                                                        fontSize: 20.0,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                                Text("Comments",
-                                                    style: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            50, 50, 93, 1),
-                                                        fontSize: 12.0))
-                                              ],
-                                            )
                                           ],
                                         ),
                                         const SizedBox(height: 40.0),

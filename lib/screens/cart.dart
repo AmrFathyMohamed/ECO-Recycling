@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
 import '../constants/Theme.dart';
-
-// Widgets
 import '../widgets/navbar.dart';
 import '../widgets/drawer.dart';
+import '../helper/product.dart' as helperProduct; // Import product model and functions
 
 class Cart extends StatelessWidget {
-  const Cart({super.key});
+  final List<helperProduct.Product> cartItems;
+
+  const Cart({Key? key, required this.cartItems}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: const Navbar(
+      appBar: Navbar(
         title: "Cart",
-        transparent: true,
-        searchBar: true,
+        transparent: false,
       ),
       backgroundColor: ArgonColors.bgColorScreen,
-      drawer: const ArgonDrawer(currentPage: "Cart"),
+      drawer: ArgonDrawer(currentPage: "Cart"),
       body: Stack(
         children: <Widget>[
+          // Background image or decoration
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 alignment: Alignment.topCenter,
-                image: AssetImage("assets/img/profile-screen-bg.png"),
-                fit: BoxFit.fitWidth,
+                image: AssetImage("assets/img/recycling-garbage2.jpg"),
+                fit: BoxFit.fill,
               ),
             ),
           ),
@@ -34,126 +35,75 @@ class Cart extends StatelessWidget {
             child: ListView(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 20.0),
+                  padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 40.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Stack(
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.1),
-                                  spreadRadius: 1,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            child: Card(
-                              semanticContainer: true,
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              elevation: 0.0,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      // Cart items list
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: cartItems.length,
+                        itemBuilder: (context, index) {
+                          final product = cartItems[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: NetworkImage(product.image),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-                                child: Column(
-                                  children: [
-                                    // Example item list using ListView.builder
-                                    ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      itemCount: 5, // Example cart items count
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                          child: ListTile(
-                                            leading: const CircleAvatar(
-                                              backgroundImage: NetworkImage(
-                                                "https://banner2.cleanpng.com/20181115/tuw/kisspng-recycling-symbol-portable-network-graphics-clip-ar-beaches-go-green-5bedb254ebc102.1666319715423043409657.jpg",
-                                              ),
-                                            ),
-                                            title: Text("Product ${index + 1}"),
-                                            subtitle: const Text("20"),
-                                            trailing: IconButton(
-                                              icon: const Icon(Icons.delete),
-                                              onPressed: () {
-                                                // Implement delete action
-                                              },
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    const SizedBox(height: 20.0),
-                                    const Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(right: 16.0),
-                                        child: Text(
-                                          "Total: 300",
-                                          style: TextStyle(
-                                            color: ArgonColors.primary,
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20.0),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            // Implement checkout action
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            foregroundColor: ArgonColors.white,
-                                            backgroundColor: ArgonColors.initial,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(4.0),
-                                            ),
-                                          ),
-                                          child: const Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                            child: Text(
-                                              "CHECKOUT",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14.0,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        // ElevatedButton(
-                                        //   onPressed: () {
-                                        //     // Implement continue shopping action
-                                        //   },
-                                        //   style: ElevatedButton.styleFrom(
-                                        //     backgroundColor: ArgonColors.initial,
-                                        //     foregroundColor: ArgonColors.white,
-                                        //     shape: RoundedRectangleBorder(
-                                        //       borderRadius: BorderRadius.circular(4.0),
-                                        //     ),
-                                        //   ),
-                                        //   child: const Padding(
-                                        //     padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                        //     child: Text(
-                                        //       "CONTINUE SHOPPING",
-                                        //       style: TextStyle(
-                                        //         fontWeight: FontWeight.w600,
-                                        //         fontSize: 14.0,
-                                        //       ),
-                                        //     ),
-                                        //   ),
-                                        // ),
-                                      ],
-                                    ),
-                                  ],
+                              title: Text(product.name),
+                              subtitle: Text(product.price.toString()), // Replace with actual price
+                              trailing: IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () {
+                                  // Implement delete action
+                                  removeFromCart(product);
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(height: 20.0),
+                      // Total amount
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 16.0),
+                          child: Text(
+                            "Total: ${calculateTotal()}",
+                            style: TextStyle(
+                              color: ArgonColors.primary,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20.0),
+                      // Checkout button
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              // Implement checkout action
+                              // Navigator.pushNamed(context, '/checkout');
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: ArgonColors.initial,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Text(
+                                "CHECKOUT",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14.0,
                                 ),
                               ),
                             ),
@@ -169,5 +119,20 @@ class Cart extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // Helper function to calculate total price
+  double calculateTotal() {
+    double total = 0;
+    for (var product in cartItems) {
+      total += product.price * product.quantity;
+    }
+    return total;
+  }
+
+  // Example method to remove item from cart
+  void removeFromCart(helperProduct.Product product) {
+    // Implement your logic to remove the product from cartItems
+    // Example: This could involve state management or modifying the cartItems list.
   }
 }

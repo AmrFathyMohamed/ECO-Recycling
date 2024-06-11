@@ -20,37 +20,50 @@ class CardSmall extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Image.asset(img, fit: BoxFit.cover),
-          Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.remove),
-                onPressed: onDecrement,
-              ),
-              Text('$quantity'),
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: onIncrement,
-              ),
-            ],
+Widget build(BuildContext context) {
+  return Card(
+    elevation: 5,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(15.0),
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Container(
+          height: 150, // Adjust height as per your design
+          width: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(img), // Assuming 'img' is a String URL
+              fit: BoxFit.cover,
+            ),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
           ),
-          ElevatedButton(
-            onPressed: tap,
-            child: Text(cta),
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.remove),
+              onPressed: onDecrement,
+            ),
+            Text('$quantity'),
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: onIncrement,
+            ),
+          ],
+        ),
+        ElevatedButton(
+          onPressed: tap,
+          child: Text(cta),
+        ),
+      ],
+    ),
+  );
+}
 }

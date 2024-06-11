@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
 class Product {
   final String name;
   final double price;
@@ -12,6 +16,27 @@ class Product {
     this.quantity = 0,
     required this.image, required this.description,
   });
+}
+Future<List<Product>> fetchProducts() async {
+  String url = 'http://192.168.1.5/ECO/Eco-skydah/Admin Dashboard/FlutterProducts.php'; // Replace with your backend URL
+  try {
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      List<Product> products = (jsonDecode(response.body) as List)
+          .map((item) => Product(
+                name: item['ProductName'],
+                price: double.parse(item['Price']),
+                image: "http://192.168.1.5/ECO/Eco-skydah/Admin Dashboard/" + item['Product_image'],
+                description: item['Description'],
+              ))
+          .toList();
+      return products;
+    } else {
+      throw Exception('Failed to load products');
+    }
+  } catch (e) {
+    throw Exception('Error: $e');
+  }
 }
 List<Product> getProducts() {
   // Simulate a delay for fetching products (optional for demonstration)

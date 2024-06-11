@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/Theme.dart';
 
 import 'drawer-tile.dart';
 
-class ArgonDrawer extends StatelessWidget {
+class ArgonDrawer extends StatefulWidget {
   final String currentPage;
 
   const ArgonDrawer({super.key, required this.currentPage});
 
-  _launchURL() async {
-    const url = 'https://creative-tim.com';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+  @override
+  _ArgonDrawerState createState() => _ArgonDrawerState();
+}
+
+class _ArgonDrawerState extends State<ArgonDrawer> {
+  String username = '';
+  
+  get currentPage => null;
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      username = prefs.getString('username') ?? 'Guest';
+    });
   }
 
   @override
@@ -25,19 +37,36 @@ class ArgonDrawer extends StatelessWidget {
         child: Container(
       color: ArgonColors.white,
       child: Column(children: [
-        SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
-            width: MediaQuery.of(context).size.width * 0.85,
-            child: SafeArea(
-              bottom: false,
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 32),
-                  child: Image.asset("assets/eco-icon.png"),
-                ),
+SizedBox(
+  height: MediaQuery.of(context).size.height * 0.1,
+  width: MediaQuery.of(context).size.width * 0.85,
+  child: SafeArea(
+    bottom: false,
+    child: Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 32),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset("assets/eco-icon.png", height: 40), // Adjust the height to fit the design
+            const SizedBox(width: 10), // Space between the image and text
+            Text(
+              'Hello, $username!',
+              style: const TextStyle(
+                color: ArgonColors.text,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
               ),
-            )),
+            ),
+          ],
+        ),
+      ),
+    ),
+  ),
+),
+
+
         Expanded(
           flex: 2,
           child: ListView(
@@ -63,17 +92,16 @@ class ArgonDrawer extends StatelessWidget {
                   iconColor: ArgonColors.warning,
                   title: "Profile",
                   isSelected: currentPage == "Profile" ? true : false),
-              
-              // DrawerTile(
-              //     icon: Icons.settings_input_component,
-              //     onTap: () {
-              //       if (currentPage != "Elements") {
-              //         Navigator.pushReplacementNamed(context, '/elements');
-              //       }
-              //     },
-              //     iconColor: ArgonColors.error,
-              //     title: "Elements",
-              //     isSelected: currentPage == "Elements" ? true : false),
+              DrawerTile(
+                  icon: Icons.star_border_rounded,
+                  onTap: () {
+                    if (currentPage != "Rewards") {
+                      Navigator.pushReplacementNamed(context, '/rewards');
+                    }
+                  },
+                  iconColor: ArgonColors.warning,
+                  title: "Rewards",
+                  isSelected: currentPage == "Rewards" ? true : false),
               DrawerTile(
                   icon: Icons.apps,
                   onTap: () {

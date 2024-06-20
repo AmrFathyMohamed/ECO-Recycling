@@ -130,7 +130,8 @@ class _ChatState extends State<Chat> {
                     padding: EdgeInsets.all(16.0),
                     itemCount: messages.length,
                     itemBuilder: (context, index) {
-                      bool isMe = messages[index]['SenderID'] == userid;
+                     bool isMe = int.tryParse(messages[index]['SenderID'].toString()) == int.tryParse(userid);
+
                       return Align(
                         alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
                         child: Container(

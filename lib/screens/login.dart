@@ -229,17 +229,21 @@ class _LoginState extends State<Login> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Input(
                                           placeholder: "Email",
-                                          prefixIcon: Icon(Icons.email),
-                                          controller: emailOrUsernameController, validator: (value) {  },
+                                          prefixIcon: const Icon(Icons.email),
+                                          controller: emailOrUsernameController, validator: (value) {
+                                            return null;
+                                            },
                                         ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Input(
                                           placeholder: "Password",
-                                          prefixIcon: Icon(Icons.lock),
+                                          prefixIcon: const Icon(Icons.lock),
                                           password: true,
-                                          controller: passwordController, validator: (value) {  },
+                                          controller: passwordController, validator: (value) {
+                                            return null;
+                                            },
                                         ),
                                       ),
                                     ],

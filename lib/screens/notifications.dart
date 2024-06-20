@@ -9,7 +9,7 @@ import '../widgets/navbar.dart';
 import '../widgets/drawer.dart';
 
 class Notifications extends StatefulWidget {
-  const Notifications({Key? key}) : super(key: key);
+  const Notifications({super.key});
 
   @override
   _NotificationsState createState() => _NotificationsState();
@@ -101,7 +101,7 @@ class _NotificationsState extends State<Notifications> {
 class NotificationItem extends StatelessWidget {
   final NotificationModel notification;
 
-  const NotificationItem({Key? key, required this.notification}) : super(key: key);
+  const NotificationItem({super.key, required this.notification});
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +163,7 @@ class NotificationModel {
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: Notifications(),
   ));
 }

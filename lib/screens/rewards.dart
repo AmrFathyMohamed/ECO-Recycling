@@ -8,7 +8,7 @@ import '../widgets/navbar.dart';
 import '../widgets/drawer.dart';
 
 class Rewards extends StatefulWidget {
-  const Rewards({Key? key}) : super(key: key);
+  const Rewards({super.key});
 
   @override
   _RewardsState createState() => _RewardsState();

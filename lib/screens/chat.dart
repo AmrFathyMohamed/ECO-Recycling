@@ -1,24 +1,103 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
 
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 import '../constants/Theme.dart';
 
 //widgets
 import '../widgets/navbar.dart';
 import '../widgets/drawer.dart';
-import '../widgets/input.dart';
 
 class Chat extends StatefulWidget {
-  const Chat({Key? key}) : super(key: key);
+  const Chat({super.key});
 
   @override
   _ChatState createState() => _ChatState();
 }
 
 class _ChatState extends State<Chat> {
-  List<String> messages = [];
-  TextEditingController _controller = TextEditingController();
+  List<Map<String, dynamic>> messages = [];
+  late String userid;
+  final TextEditingController _controller = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+    _fetchMessages();
+    _timer = Timer.periodic(Duration(seconds: 10), (Timer t) => _fetchMessages());
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _scrollController.dispose(); // Dispose the scroll controller
+    super.dispose();
+  }
+
+  Future<void> _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userid = prefs.getString('userid') ?? '7';
+    });
+  }
+
+  Future<void> _fetchMessages() async {
+    final response = await http.get(Uri.parse('http://192.168.1.5/ECO/Eco-skydah/Admin Dashboard/FlutterFetchMessages.php?chat=2'));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        messages = List<Map<String, dynamic>>.from(json.decode(response.body));
+        _scrollToBottom();
+      });
+    } else {
+      throw Exception('Failed to load messages');
+    }
+  }
+
+  Future<void> _sendMessage() async {
+    if (_controller.text.isNotEmpty) {
+      final response = await http.post(
+        Uri.parse('http://192.168.1.5/ECO/Eco-skydah/Admin Dashboard/FlutterSendMessages.php'),
+        body: {
+          'message': _controller.text,
+          'chat': '2',
+          'Uid': userid,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          messages.add({
+            'Message': _controller.text,
+            'SenderID': userid,
+          });
+          _controller.clear();
+          _scrollToBottom();
+        });
+      } else {
+        throw Exception('Failed to send message');
+      }
+    }
+  }
+
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +114,7 @@ class _ChatState extends State<Chat> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                      image: AssetImage("assets/img/recycling-garbage2.jpg"),
+                image: AssetImage("assets/img/recycling-garbage2.jpg"),
                 fit: BoxFit.fill,
               ),
             ),
@@ -44,31 +123,31 @@ class _ChatState extends State<Chat> {
           Column(
             children: [
               Expanded(
-                child: ListView.builder(
-                  padding: EdgeInsets.all(16.0),
-                  itemCount: messages.length,
-                  itemBuilder: (context, index) {
-                    return Align(
-                      alignment: index % 2 == 0
-                          ? Alignment.centerLeft
-                          : Alignment.centerRight,
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 5.0),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 10.0),
-                        decoration: BoxDecoration(
-                          color: index % 2 == 0
-                              ? ArgonColors.primary.withOpacity(0.8)
-                              : ArgonColors.primaryGr.withOpacity(0.8),
-                          borderRadius: BorderRadius.circular(20.0),
+                child: RefreshIndicator(
+                  onRefresh: _fetchMessages,
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    padding: EdgeInsets.all(16.0),
+                    itemCount: messages.length,
+                    itemBuilder: (context, index) {
+                      bool isMe = messages[index]['SenderID'] == userid;
+                      return Align(
+                        alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5.0),
+                          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                          decoration: BoxDecoration(
+                            color: isMe ? Colors.green[100] : Colors.grey[300],
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Text(
+                            messages[index]['Message'],
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
-                        child: Text(
-                          messages[index],
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
               // Input Field
@@ -104,14 +183,5 @@ class _ChatState extends State<Chat> {
         ],
       ),
     );
-  }
-
-  void _sendMessage() {
-    if (_controller.text.isNotEmpty) {
-      setState(() {
-        messages.add(_controller.text);
-        _controller.clear();
-      });
-    }
   }
 }

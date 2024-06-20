@@ -214,7 +214,9 @@ class _NavbarState extends State<Navbar> {
                           const Icon(Icons.zoom_in, color: ArgonColors.muted),
                       onTap: () {
                         Navigator.pushNamed(context, '/Products');
-                      }, validator: (value) {  },
+                      }, validator: (value) {
+                        return null;
+                        },
                     ),
                   ),
                 const SizedBox(height: 10.0),

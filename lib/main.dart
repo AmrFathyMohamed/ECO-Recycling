@@ -11,7 +11,6 @@ import 'screens/chat.dart';
 import 'screens/home.dart';
 import 'screens/profile.dart';
 import 'screens/register.dart';
-import 'screens/elements.dart';
 import 'screens/rewards.dart';
 
 
@@ -36,9 +35,9 @@ class MyApp extends StatelessWidget {
           "/registration": (BuildContext context) => const Register(),
           "/login": (BuildContext context) => const Login(),
           "/chat": (BuildContext context) => const Chat(),
-          "/cart": (BuildContext context) => Cart(cartItems: [],),
-          "/rewards": (BuildContext context) => Rewards(),
-          "/notifications": (BuildContext context) => Notifications(),
+          "/cart": (BuildContext context) => const Cart(cartItems: [],),
+          "/rewards": (BuildContext context) => const Rewards(),
+          "/notifications": (BuildContext context) => const Notifications(),
 
 
         });

@@ -37,7 +37,7 @@ Widget build(BuildContext context) {
               image: NetworkImage(img), // Assuming 'img' is a String URL
               fit: BoxFit.cover,
             ),
-            borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(15.0)),
           ),
         ),
         Padding(

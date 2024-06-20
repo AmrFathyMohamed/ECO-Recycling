@@ -8,7 +8,7 @@ import '../widgets/input.dart';
 import '../widgets/drawer.dart';
 
 class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+  const Register({super.key});
 
   @override
   _RegisterState createState() => _RegisterState();
@@ -18,10 +18,10 @@ class _RegisterState extends State<Register> {
   bool _checkboxValue = false;
   bool _isLoading = false;
 
-  TextEditingController _firstNameController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -55,11 +55,11 @@ class _RegisterState extends State<Register> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text('Registration Error'),
+                title: const Text('Registration Error'),
                 content: Text(data['error'] ?? 'Unknown error occurred.'),
                 actions: <Widget>[
                   TextButton(
-                    child: Text('OK'),
+                    child: const Text('OK'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -252,11 +252,11 @@ class _RegisterState extends State<Register> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Padding(
-                                          padding: EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           child: Input(
                                             controller: _firstNameController,
                                             placeholder: "First Name",
-                                            prefixIcon: Icon(Icons.person),
+                                            prefixIcon: const Icon(Icons.person),
                                             validator: (value) {
                                               if (value == null || value.isEmpty) {
                                                 return 'Please enter your first name';
@@ -266,11 +266,11 @@ class _RegisterState extends State<Register> {
                                           ),
                                         ),
                                         Padding(
-                                          padding: EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           child: Input(
                                             controller: _lastNameController,
                                             placeholder: "Last Name",
-                                            prefixIcon: Icon(Icons.person),
+                                            prefixIcon: const Icon(Icons.person),
                                             validator: (value) {
                                               if (value == null || value.isEmpty) {
                                                 return 'Please enter your last name';
@@ -280,11 +280,11 @@ class _RegisterState extends State<Register> {
                                           ),
                                         ),
                                         Padding(
-                                          padding: EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           child: Input(
                                             controller: _emailController,
                                             placeholder: "Email",
-                                            prefixIcon: Icon(Icons.email),
+                                            prefixIcon: const Icon(Icons.email),
                                             validator: (value) {
                                               if (value == null || value.isEmpty) {
                                                 return 'Please enter your email';
@@ -294,11 +294,11 @@ class _RegisterState extends State<Register> {
                                           ),
                                         ),
                                         Padding(
-                                          padding: EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           child: Input(
                                             controller: _passwordController,
                                             placeholder: "Password",
-                                            prefixIcon: Icon(Icons.lock),
+                                            prefixIcon: const Icon(Icons.lock),
                                             password: true,
                                             validator: (value) {
                                               if (value == null || value.isEmpty) {
@@ -348,8 +348,8 @@ class _RegisterState extends State<Register> {
                                         ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 16)),
+                                    const Padding(
+                                      padding: EdgeInsets.only(top: 16)),
                                       Center(
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
@@ -365,12 +365,12 @@ class _RegisterState extends State<Register> {
                                             });
                                             _registerUser();
                                           } : null,
-                                          child: Padding(padding:EdgeInsets.symmetric(
+                                          child: Padding(padding:const EdgeInsets.symmetric(
                                               vertical: 12,
                                               horizontal: 16,
                                             ),
                                             child: _isLoading
-                                                ? SizedBox(
+                                                ? const SizedBox(
                                                     width: 20,
                                                     height: 20,
                                                     child: CircularProgressIndicator(
@@ -378,7 +378,7 @@ class _RegisterState extends State<Register> {
                                                       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                                                     ),
                                                   )
-                                                : Text(
+                                                : const Text(
                                                     "Register",
                                                     style: TextStyle(
                                                       fontWeight: FontWeight.w600,

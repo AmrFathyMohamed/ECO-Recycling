@@ -7,23 +7,23 @@ import '../helper/product.dart' as helperProduct; // Import product model and fu
 class Cart extends StatelessWidget {
   final List<helperProduct.Product> cartItems;
 
-  const Cart({Key? key, required this.cartItems}) : super(key: key);
+  const Cart({super.key, required this.cartItems});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: Navbar(
+      appBar: const Navbar(
         title: "Cart",
         transparent: false,
       ),
       backgroundColor: ArgonColors.bgColorScreen,
-      drawer: ArgonDrawer(currentPage: "Cart"),
+      drawer: const ArgonDrawer(currentPage: "Cart"),
       body: Stack(
         children: <Widget>[
           // Background image or decoration
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 alignment: Alignment.topCenter,
                 image: AssetImage("assets/img/recycling-garbage2.jpg"),
@@ -42,7 +42,7 @@ class Cart extends StatelessWidget {
                       // Cart items list
                       ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: cartItems.length,
                         itemBuilder: (context, index) {
                           final product = cartItems[index];
@@ -55,7 +55,7 @@ class Cart extends StatelessWidget {
                               title: Text(product.name),
                               subtitle: Text(product.price.toString()), // Replace with actual price
                               trailing: IconButton(
-                                icon: Icon(Icons.delete),
+                                icon: const Icon(Icons.delete),
                                 onPressed: () {
                                   // Implement delete action
                                   removeFromCart(product);
@@ -65,15 +65,15 @@ class Cart extends StatelessWidget {
                           );
                         },
                       ),
-                      SizedBox(height: 20.0),
+                      const SizedBox(height: 20.0),
                       // Total amount
                       Align(
                         alignment: Alignment.centerRight,
                         child: Padding(
-                          padding: EdgeInsets.only(right: 16.0),
+                          padding: const EdgeInsets.only(right: 16.0),
                           child: Text(
                             "Total: ${calculateTotal()}",
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: ArgonColors.primary,
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
@@ -81,7 +81,7 @@ class Cart extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20.0),
+                      const SizedBox(height: 20.0),
                       // Checkout button
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -97,8 +97,8 @@ class Cart extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
                               child: Text(
                                 "CHECKOUT",
                                 style: TextStyle(

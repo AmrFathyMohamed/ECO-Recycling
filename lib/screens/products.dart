@@ -7,7 +7,7 @@ import 'package:eco/helper/product.dart' as helperProduct;
 import 'package:eco/screens/cart.dart'; // Import Cart screen
 
 class Products extends StatefulWidget {
-  const Products({Key? key}) : super(key: key);
+  const Products({super.key});
 
   @override
   _ProductsState createState() => _ProductsState();
@@ -42,7 +42,7 @@ class _ProductsState extends State<Products> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Navbar(
+      appBar: const Navbar(
         title: "Products",
         searchBar: true,
         // searchQuery: searchQuery,
@@ -67,21 +67,21 @@ class _ProductsState extends State<Products> {
         // ],
       ),
       backgroundColor: ArgonColors.bgColorScreen,
-      drawer: ArgonDrawer(currentPage: "Products"),
+      drawer: const ArgonDrawer(currentPage: "Products"),
       body: Container(
-        padding: EdgeInsets.only(top: 24.0),
+        padding: const EdgeInsets.only(top: 24.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               // Replace with your ProductCarousel widget
               // ProductCarousel(imgArray: products), 
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               GridView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 0.50,
                   crossAxisSpacing: 8,
@@ -113,7 +113,7 @@ class _ProductsState extends State<Products> {
                   );
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
             ],
           ),
         ),

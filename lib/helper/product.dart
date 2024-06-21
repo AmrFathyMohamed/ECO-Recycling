@@ -34,7 +34,7 @@ class Product {
 
 Future<List<Product>> fetchProducts() async {
   String url =
-      'http://192.168.1.11/ECO/Eco-skydah/Admin Dashboard/FlutterProducts.php'; // Replace with your backend URL
+      'http://192.168.1.5/ECO/Eco-skydah/Admin Dashboard/FlutterProducts.php'; // Replace with your backend URL
   try {
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
@@ -43,7 +43,7 @@ Future<List<Product>> fetchProducts() async {
                 id: item['ProductID'],
                 name: item['ProductName'],
                 price: double.parse(item['Price']),
-                image: "http://192.168.1.11/ECO/Eco-skydah/Admin Dashboard/" +
+                image: "http://192.168.1.5/ECO/Eco-skydah/Admin Dashboard/" +
                     item['Product_image'],
                 description: item['Description'],
               ))

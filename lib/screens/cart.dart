@@ -198,7 +198,7 @@ Future<void> _loadUserData() async {
   }
 
   void checkout() async {
-    final url = Uri.parse('http://192.168.1.11/ECO/Eco-skydah/Admin Dashboard/FlutterAddOrder.php');  // Replace with your PHP endpoint
+    final url = Uri.parse('http://192.168.1.5/ECO/Eco-skydah/Admin Dashboard/FlutterAddOrder.php');  // Replace with your PHP endpoint
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({
       'cartItems': cartItems.map((product) => product.toJson()).toList(),

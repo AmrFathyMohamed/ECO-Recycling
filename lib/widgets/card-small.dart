@@ -4,6 +4,7 @@ class CardSmall extends StatelessWidget {
   final String cta;
   final String title;
   final String img;
+  final String Points;
   final VoidCallback tap;
   final int quantity;
   final VoidCallback onIncrement;
@@ -11,6 +12,7 @@ class CardSmall extends StatelessWidget {
 
   const CardSmall({super.key, 
     required this.cta,
+    required this.Points,
     required this.title,
     required this.img,
     required this.tap,
@@ -43,6 +45,10 @@ Widget build(BuildContext context) {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(Points, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

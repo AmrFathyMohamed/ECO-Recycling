@@ -69,6 +69,7 @@ class _ProductsState extends State<Products> {
                   helperProduct.Product product = filteredProducts[index];
                   return CardSmall(
                     cta: "Add To Cart",
+                    Points: product.price.toString() + " Points",
                     title: product.name,
                     img: product.image,
                     quantity: product.quantity,

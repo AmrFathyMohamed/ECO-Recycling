@@ -36,7 +36,7 @@ class _RewardsState extends State<Rewards> {
   }
 
   Future<void> _fetchUserData(String userId) async {
-    String url = 'http://192.168.1.11/ECO/Eco-skydah/Admin%20Dashboard/FlutterRewards.php';
+    String url = 'http://192.168.1.5/ECO/Eco-skydah/Admin%20Dashboard/FlutterRewards.php';
     try {
       final response = await http.post(
         Uri.parse(url),

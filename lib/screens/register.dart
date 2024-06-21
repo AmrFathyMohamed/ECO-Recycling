@@ -30,7 +30,7 @@ class _RegisterState extends State<Register> {
       _isLoading = true;
     });
 
-    String url = 'http://192.168.1.11/ECO/Eco-skydah/Admin%20Dashboard/FlutterRegistration.php';
+    String url = 'http://192.168.1.5/ECO/Eco-skydah/Admin%20Dashboard/FlutterRegistration.php';
 
     try {
       var response = await http.post(

@@ -26,7 +26,7 @@ class _LoginState extends State<Login> {
   String message = '';
 
   Future<void> _login() async {
-    String url = 'http://192.168.1.11/ECO/Eco-skydah/Admin Dashboard/FlutterLogin.php';
+    String url = 'http://192.168.1.5/ECO/Eco-skydah/Admin Dashboard/FlutterLogin.php';
     try {
       final response = await http.post(
         Uri.parse(url),

@@ -21,7 +21,7 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
   List<Map<String, dynamic>> messages = [];
-  late String userid;
+  String userid = '7';
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   Timer? _timer;
@@ -49,7 +49,7 @@ class _ChatState extends State<Chat> {
   }
 
   Future<void> _fetchMessages() async {
-    final response = await http.get(Uri.parse('http://192.168.1.5/ECO/Eco-skydah/Admin Dashboard/FlutterFetchMessages.php?chat=2'));
+    final response = await http.get(Uri.parse('http://192.168.1.11/ECO/Eco-skydah/Admin Dashboard/FlutterFetchMessages.php?chat=$userid'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -64,7 +64,7 @@ class _ChatState extends State<Chat> {
   Future<void> _sendMessage() async {
     if (_controller.text.isNotEmpty) {
       final response = await http.post(
-        Uri.parse('http://192.168.1.5/ECO/Eco-skydah/Admin Dashboard/FlutterSendMessages.php'),
+        Uri.parse('http://192.168.1.11/ECO/Eco-skydah/Admin Dashboard/FlutterSendMessages.php'),
         body: {
           'message': _controller.text,
           'chat': '2',
@@ -111,14 +111,14 @@ class _ChatState extends State<Chat> {
       body: Stack(
         children: [
           // Background Image
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/img/recycling-garbage2.jpg"),
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
+          // Container(
+          //   decoration: BoxDecoration(
+          //     image: DecorationImage(
+          //       image: AssetImage("assets/img/recycling-garbage2.jpg"),
+          //       fit: BoxFit.fill,
+          //     ),
+          //   ),
+          // ),
           // Chat Messages
           Column(
             children: [

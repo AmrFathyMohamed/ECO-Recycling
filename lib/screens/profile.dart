@@ -44,13 +44,13 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<void> _fetchUserData() async {
-    final response = await http.get(Uri.parse('http://192.168.1.5/ECO/Eco-skydah/Admin Dashboard/FlutterGetUser.php?id=7'));
+    final response = await http.get(Uri.parse('http://192.168.1.11/ECO/Eco-skydah/Admin Dashboard/FlutterGetUser.php?id=7'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       if (data['status'] == 'success') {
         setState(() {
-          username = data['UserData']['username'] ?? 'Guest';
+          username = data['UserData']['FirstName']+ " " + data['UserData']['LastName'] ?? 'Guest';
           points = data['UserData']['Points'].toString() ?? '0';
         });
       } else {

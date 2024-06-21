@@ -28,8 +28,7 @@ class _ProductsState extends State<Products> {
 
   Future<void> _loadProducts() async {
     try {
-      List<helperProduct.Product> fetchedProducts =
-          await helperProduct.fetchProducts();
+      List<helperProduct.Product> fetchedProducts = await helperProduct.fetchProducts();
       setState(() {
         products = fetchedProducts;
         filteredProducts = products; // Initialize filteredProducts with all products initially
@@ -42,32 +41,12 @@ class _ProductsState extends State<Products> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const Navbar(
+      appBar: Navbar(
         title: "Products",
         searchBar: true,
-        // searchQuery: searchQuery,
-        // onSearchChanged: (value) {
-        //   setState(() {
-        //     searchQuery = value;
-        //     filteredProducts = products
-        //         .where((product) => product.name
-        //             .toLowerCase()
-        //             .contains(searchQuery.toLowerCase()))
-        //         .toList();
-        //   });
-        // },
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.shopping_cart),
-        //     onPressed: () {
-        //       // Navigate to cart screen
-        //       navigateToCartScreen();
-        //     },
-        //   ),
-        // ],
       ),
       backgroundColor: ArgonColors.bgColorScreen,
-      drawer: const ArgonDrawer(currentPage: "Products"),
+      drawer: ArgonDrawer(currentPage: "Products"),
       body: Container(
         padding: const EdgeInsets.only(top: 24.0),
         child: SingleChildScrollView(
@@ -75,8 +54,6 @@ class _ProductsState extends State<Products> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 16.0),
-              // Replace with your ProductCarousel widget
-              // ProductCarousel(imgArray: products), 
               const SizedBox(height: 16.0),
               GridView.builder(
                 shrinkWrap: true,
@@ -91,14 +68,13 @@ class _ProductsState extends State<Products> {
                 itemBuilder: (context, index) {
                   helperProduct.Product product = filteredProducts[index];
                   return CardSmall(
-                    cta: "",
+                    cta: "Add To Cart",
                     title: product.name,
                     img: product.image,
                     quantity: product.quantity,
                     tap: () {
-                      // Navigate to Cart screen and add product to cart
                       addToCart(product);
-                      navigateToCartScreen();
+                      //navigateToCartScreen();
                     },
                     onIncrement: () {
                       setState(() {
@@ -118,17 +94,19 @@ class _ProductsState extends State<Products> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: navigateToCartScreen,
+        child: const Icon(Icons.shopping_cart),
+      ),
     );
   }
 
-  // Method to add product to cart
   void addToCart(helperProduct.Product product) {
     setState(() {
       cartItems.add(product);
     });
   }
 
-  // Method to navigate to Cart screen
   void navigateToCartScreen() {
     Navigator.push(
       context,

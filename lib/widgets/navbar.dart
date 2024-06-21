@@ -180,23 +180,23 @@ class _NavbarState extends State<Navbar> {
                               onPressed: null,
                             ),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/cart');
-                            },
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.shopping_basket,
-                                color: !widget.transparent
-                                    ? (widget.bgColor == ArgonColors.white
-                                        ? ArgonColors.initial
-                                        : ArgonColors.white)
-                                    : ArgonColors.white,
-                                size: 22.0,
-                              ),
-                              onPressed: null,
-                            ),
-                          ),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     Navigator.pushNamed(context, '/cart');
+                          //   },
+                          //   child: IconButton(
+                          //     icon: Icon(
+                          //       Icons.shopping_basket,
+                          //       color: !widget.transparent
+                          //           ? (widget.bgColor == ArgonColors.white
+                          //               ? ArgonColors.initial
+                          //               : ArgonColors.white)
+                          //           : ArgonColors.white,
+                          //       size: 22.0,
+                          //     ),
+                          //     onPressed: null,
+                          //   ),
+                          // ),
                         ],
                       ),
                   ],

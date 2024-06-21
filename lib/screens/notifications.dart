@@ -39,7 +39,7 @@ class _NotificationsState extends State<Notifications> {
   Future<void> _fetchNotifications(String userId) async {
     try {
       // Adjust the URL as per your backend setup
-      var url = Uri.parse('http://192.168.1.5/ECO/Eco-skydah/Admin%20Dashboard/FlutterNotifications.php');
+      var url = Uri.parse('http://192.168.1.11/ECO/Eco-skydah/Admin%20Dashboard/FlutterNotifications.php');
       var response = await http.post(url, body: {'userid': userId});
 
       if (response.statusCode == 200) {

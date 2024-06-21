@@ -1,13 +1,18 @@
+// ignore_for_file: library_private_types_in_public_api, library_prefixes
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 import '../constants/Theme.dart';
 import '../widgets/navbar.dart';
 import '../widgets/drawer.dart';
 import '../helper/product.dart' as helperProduct;
 
 class Cart extends StatefulWidget {
-  final List<helperProduct.Product> cartItems;
+  final List<helperProduct.Product>? cartItems;
 
-  const Cart({Key? key, required this.cartItems}) : super(key: key);
+  const Cart({super.key, this.cartItems});
 
   @override
   _CartState createState() => _CartState();
@@ -15,13 +20,23 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
   late List<helperProduct.Product> cartItems;
+  String? userID;  // Add userID as a parameter
 
   @override
   void initState() {
     super.initState();
-    cartItems = widget.cartItems;
-  }
+        _loadUserData();
 
+    cartItems = widget.cartItems!;
+  }
+Future<void> _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userID = prefs.getString('userid') ?? '0';
+
+    });
+    // Call PHP script to fetch user data
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,7 +143,7 @@ class _CartState extends State<Cart> {
                                       children: [
                                         ElevatedButton(
                                           onPressed: () {
-                                            // Implement checkout action
+                                            checkout();
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: ArgonColors.initial,
@@ -180,5 +195,48 @@ class _CartState extends State<Cart> {
     setState(() {
       cartItems.remove(product);
     });
+  }
+
+  void checkout() async {
+    final url = Uri.parse('http://192.168.1.11/ECO/Eco-skydah/Admin Dashboard/FlutterAddOrder.php');  // Replace with your PHP endpoint
+    final headers = {'Content-Type': 'application/json'};
+    final body = jsonEncode({
+      'cartItems': cartItems.map((product) => product.toJson()).toList(),
+      //'total': calculateTotal(),
+      'userID': userID,  // Include userID in the request
+    });
+
+    try {
+      final response = await http.post(url, headers: headers, body: body);
+
+      if (response.statusCode == 200) {
+        // Handle successful checkout
+        final responseBody = jsonDecode(response.body);
+        if (responseBody['status'] == 'success') {
+          // Show success message and clear cart
+          setState(() {
+            cartItems.clear();
+          });
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Order placed successfully!')),
+          );
+        } else {
+          // Show error message
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error: ${responseBody['message']}')),
+          );
+        }
+      } else {
+        // Handle server error
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Server error. Please try again later.')),
+        );
+      }
+    } catch (e) {
+      // Handle network error
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
   }
 }

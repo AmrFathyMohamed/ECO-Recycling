@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           "/registration": (BuildContext context) => const Register(),
           "/login": (BuildContext context) => const Login(),
           "/chat": (BuildContext context) => const Chat(),
-          "/cart": (BuildContext context) => const Cart(cartItems: [],),
+          "/cart": (BuildContext context) => const Cart(),
           "/rewards": (BuildContext context) => const Rewards(),
           "/notifications": (BuildContext context) => const Notifications(),
 

@@ -253,11 +253,11 @@ class _NavbarState extends State<Navbar> {
                       const SizedBox(width: 30),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/cart');
+                          Navigator.pushNamed(context, '/notifications');
                         },
                         child: Row(
                           children: [
-                            const Icon(Icons.shopping_cart,
+                            const Icon(Icons.notifications_active,
                                 color: ArgonColors.initial, size: 22.0),
                             const SizedBox(width: 10),
                             Text(

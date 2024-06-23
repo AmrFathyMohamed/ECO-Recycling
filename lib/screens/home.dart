@@ -26,7 +26,7 @@ class Home extends StatelessWidget {
         title: "Home",
         searchBar: true,
         categoryOne: "Products",
-        categoryTwo: "Cart",
+        categoryTwo: "Notifications",
       ),
       backgroundColor: ArgonColors.bgColorScreen,
       drawer: ArgonDrawer(currentPage: "Home"),
